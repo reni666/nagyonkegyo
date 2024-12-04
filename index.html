@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    #game-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      height: 100vh;
+    }
+    #canvas {
+      background-color: #111;
+      border: 1px solid #fff;
+    }
+    #sidebar {
+      width: 300px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5);
+    }
+    #sidebar h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #sidebar form {
+      text-align: center;
+    }
+    #sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    #sidebar ul li {
+      background: #444;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="canvas" width="400" height="400"></canvas>
+  </div>
+  <div id="sidebar">
+    <h1>Toplista</h1>
+    <form id="player-form">
+      <input type="text" id="player-name" placeholder="Add meg a neved" required>
+      <button type="submit">Indulás</button>
+    </form>
+    <ul id="score-list"></ul>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
