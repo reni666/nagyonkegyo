@@ -46,7 +46,7 @@ function update() {
 
   snake.unshift(head);
 
-  // Ha a kígyó megette az ételt
+ 
   if (head.x === food.x && head.y === food.y) {
     score++;
     food = {
