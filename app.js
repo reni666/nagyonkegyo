@@ -13,7 +13,6 @@ const form = document.getElementById("player-form");
 const nameInput = document.getElementById("player-name");
 const scoreListElement = document.getElementById("score-list");
 
-// Játék indítása
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   playerName = nameInput.value;
@@ -35,7 +34,7 @@ function resetGame() {
 function update() {
   const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
 
-  // Ütközés ellenőrzése
+  
   if (
     head.x < 0 || head.x >= canvas.width ||
     head.y < 0 || head.y >= canvas.height ||
@@ -64,11 +63,11 @@ function update() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Ételt rajzol
+
   ctx.fillStyle = "red";
   ctx.fillRect(food.x, food.y, 20, 20);
 
-  // Kígyót rajzol
+  
   ctx.fillStyle = "lime";
   snake.forEach(segment => ctx.fillRect(segment.x, segment.y, 20, 20));
 }
@@ -93,7 +92,6 @@ function renderScoreList() {
     .join("");
 }
 
-// Irányítás beállítása
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "ArrowUp":
