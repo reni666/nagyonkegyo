@@ -7,6 +7,8 @@ let food = { x: 100, y: 100 };
 let score = 0;
 let interval = null;
 let playerName = "";
+let appleImage = new Image();
+appleImage.src = 'alma.png'; // Alma képe
 
 const scoreList = [];
 const form = document.getElementById("player-form");
@@ -34,7 +36,6 @@ function resetGame() {
 function update() {
   const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
 
-  
   if (
     head.x < 0 || head.x >= canvas.width ||
     head.y < 0 || head.y >= canvas.height ||
@@ -46,7 +47,6 @@ function update() {
 
   snake.unshift(head);
 
- 
   if (head.x === food.x && head.y === food.y) {
     score++;
     food = {
@@ -63,18 +63,17 @@ function update() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  // Alma kirajzolása
+  ctx.drawImage(appleImage, food.x, food.y, 20, 20);  // Alma kép
 
-  ctx.fillStyle = "red";
-  ctx.fillRect(food.x, food.y, 20, 20);
-
-  
+  // Kígyó kirajzolása
   ctx.fillStyle = "lime";
   snake.forEach(segment => ctx.fillRect(segment.x, segment.y, 20, 20));
 }
 
 function gameOver() {
   clearInterval(interval);
- alert(`${playerName}, a pontszámod: ${score}`);
+  alert(`${playerName}, a pontszámod: ${score}`);
 
   updateScoreList(playerName, score);
   resetGame();
@@ -92,6 +91,7 @@ function renderScoreList() {
     .join("");
 }
 
+// Billentyűzetes irányítás
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "ArrowUp":
@@ -108,3 +108,39 @@ window.addEventListener("keydown", (e) => {
       break;
   }
 });
+
+// Érintőképernyős vezérlés
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchmove', handleTouchMove, false);
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+function handleTouchStart(event) {
+  const touch = event.touches[0];
+  touchStartX = touch.pageX;
+  touchStartY = touch.pageY;
+}
+
+function handleTouchMove(event) {
+  const touch = event.touches[0];
+  const deltaX = touch.pageX - touchStartX;
+  const deltaY = touch.pageY - touchStartY;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (deltaX > 0 && direction.x !== -20) {
+      direction = { x: 20, y: 0 }; // Jobbra
+    } else if (deltaX < 0 && direction.x !== 20) {
+      direction = { x: -20, y: 0 }; // Balra
+    }
+  } else {
+    if (deltaY > 0 && direction.y !== -20) {
+      direction = { x: 0, y: 20 }; // Le
+    } else if (deltaY < 0 && direction.y !== 20) {
+      direction = { x: 0, y: -20 }; // Fel
+    }
+  }
+
+  touchStartX = touch.pageX;
+  touchStartY = touch.pageY;
+}
